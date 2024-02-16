@@ -17,6 +17,8 @@ import post2 from './blog-post.2.md';
 import post3 from './blog-post.3.md';
 import {sections} from './sectionsArray'
 
+
+
 const mainFeaturedPost = {
   title: 'Title of a longer featured blog post',
   description:

@@ -4,9 +4,29 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Markdown from './Markdown';
+import { useEffect, useState } from 'react';
+
 
 function Main(props) {
   const { posts, title } = props;
+  const [postContents, setPostContents] = useState([]);
+
+  useEffect(() => {
+    //boucle de posts (url ressources) et recuperation du contenu
+    // par le bias de la fonction fetch 
+
+    let nextId = 0;
+    posts.map((post) => (
+
+      fetch(post)
+      .then( (response) => response.text())
+      .then( (text) => setPostContents([...postContents,{id:nextId++,text:text}])) 
+      .catch( (erreur) => console.log("requete echouée..."+erreur))
+      ))  
+
+  }, []);
+
+
 
   return (
     <Grid
@@ -23,11 +43,20 @@ function Main(props) {
         {title}
       </Typography>
       <Divider />
-      {posts.map((post) => (
-        <Markdown className="markdown" key={post.substring(0, 40)}>
-          {post}
+      
+      {/*boucle du contenu des posts pour la creation 
+      des composants Markdown */} 
+      
+      {postContents.map((postContent) => (
+        <Markdown className="markdown" key={postContent.text.substring(0, 40)}>
+          {postContent.text}
         </Markdown>
       ))}
+      
+     
+
+
+
     </Grid>
   );
 }

@@ -1,3 +1,5 @@
+
+
 export const sections = [
     { title: 'Home', url: '/' },
     { title: 'Technology', url: 'Technology' },
